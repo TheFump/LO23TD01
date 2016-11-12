@@ -20,8 +20,6 @@ public class TableController {
 	public void initialize() throws IOException {
 		tableView.setRight(getCollapsiblePane("/ihmTable/resources/view/Chat.fxml", Position.right));
 		tableView.setLeft(getCollapsiblePane("/ihmTable/resources/view/Rules.fxml", Position.left));
-		Pane p = new Pane();
-		tableView.setCenter(p);
 	}
 
 	private AnchorPane getCollapsiblePane(String content, Position position) throws IOException {
