@@ -18,6 +18,7 @@ public interface ComServerInterface {
 	public void hasWon(List<UUID> receivers, UUID winner);
 	public void startTurn(List<UUID> receivers, UUID player, boolean isLastLaunch);
 	public void sendProfileUpdate(List<UUID> receivers, UUID userUpdated, Profile data);
+	public void sendProfile(UUID receivers, Profile data);
 	public void kick(List<UUID> receivers, String msg);
 	public void askStopGameEveryUser(List<UUID> receivers);
 	public void stopGameAccepted(List<UUID> receivers);
