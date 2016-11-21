@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import data.GameTable;
 import data.Profile;
+import data.User;
 
 import java.net.ServerSocket;
 
@@ -245,5 +246,11 @@ public class ComServer implements Runnable, ComServerInterface {
         }
         
     }
+
+	@Override
+	public void sendTablesUsers(List<User> userList, List<GameTable> tableList, Profile user) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

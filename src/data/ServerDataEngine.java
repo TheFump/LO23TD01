@@ -1,23 +1,29 @@
 package data;
 
+import network.server.*; 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import network.server.ComServerInterface;
 
 public class ServerDataEngine implements InterfaceDataNetwork {
 	private List<User> usersList;
 	private List<GameTable> tableList;
 	
+	private ComServer comServer;
 	
 	/*
 	 * 
 	 * Constructor
 	 * 
 	 */
-	
+
 	public ServerDataEngine() {
 		this.usersList = new ArrayList<>();
 		this.tableList = new ArrayList<>();
+		this.comServer = null;
 	}
 	
 	/*
@@ -114,7 +120,17 @@ public class ServerDataEngine implements InterfaceDataNetwork {
 	}
 	@Override
 	public void connectUser(Profile profile) {
-		// TODO Auto-generated method stub
+		User newUser = new User(profile);
+		
+//		if(!newUser.isFullVersion())
+//			throw new Exception("Profil non complet lors de la connexion. Profil complet requis.");
+//		else if (newUser.getSame(this.usersList)!=null)
+//			throw new Exception("Profil déjà connecté. Veuillez réessayer dans X minutes");
+		
+		this.comServer.newUser(getUUIDList(this.usersList), newUser.getEmptyVersion().getPublicData());
+		this.usersList.add(newUser);
+		this.comServer.sendTablesUsers(this.usersList,this.tableList,newUser.getEmptyVersion().getPublicData());
+		
 		
 	}
 	@Override
@@ -134,4 +150,27 @@ public class ServerDataEngine implements InterfaceDataNetwork {
 	}
 	
 	
+	public ComServer getComServer() {
+		return comServer;
+	}
+
+	public void setComServer(ComServer comServer) {
+		this.comServer = comServer;
+	}	
+	
+	public static List<User> getEmptyList(List<User> userList)
+	{
+		List<User> newList = new ArrayList<User>();
+		for(User i : userList)
+			newList.add(i.getEmptyVersion());
+		return newList;
+	}
+	
+	public static List<UUID> getUUIDList(List<User> userList)
+	{
+		List<UUID> newList = new ArrayList<UUID>();
+		for(User i : userList)
+			newList.add(i.getPublicData().getUuid());
+		return newList;
+	}
 }

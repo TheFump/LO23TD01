@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import data.GameTable;
 import data.Profile;
+import data.User;
 
 public interface ComServerInterface {
 	
@@ -28,4 +29,5 @@ public interface ComServerInterface {
 	public void hasAccepted(UUID user,List<UUID> receivers);
 	public void hasRefused(UUID user,List<UUID> receivers);
 	public void newUser(List<UUID> receivers, Profile user);
+	public void sendTablesUsers(List<User> userList, List<GameTable> tableList, Profile user);
 }
