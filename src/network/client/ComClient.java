@@ -1,16 +1,13 @@
 package network.client;
 
 import java.io.IOException;
-
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.UUID;
 
 import data.Profile;
-import network.messages.GetProfileMessage;
+import network.messages.ConnectionMessage;
 import network.messages.IMessage;
-import network.messages.UpdateProfileMessage;
-import network.messages.LogoutUserRequestMessage;
 
 public class ComClient implements ComClientInterface{
 	private int 					serverPort;
@@ -33,7 +30,7 @@ public class ComClient implements ComClientInterface{
 		try {
 			socketToServer = new Socket(ipAdress, serverPort);
 			
-			System.out.println("Client connecté au serveur");
+			System.out.println("Client connectÃ© au serveur");
 			
 			SocketServerHandler server = new SocketServerHandler(socketToServer);
         	new Thread(server).start();
@@ -66,8 +63,8 @@ public class ComClient implements ComClientInterface{
 	
 	@Override
 	public void connection(Profile user) {
-		// TODO Auto-generated method stub
-		
+		ConnectionMessage msg = new ConnectionMessage(user);
+		sendMessage(msg);
 	}
 
 	@Override
@@ -103,7 +100,8 @@ public class ComClient implements ComClientInterface{
 
 	@Override
 	public void updateUserProfile(UUID user, Profile profile) {
-		sendMessage(new UpdateProfileMessage(user,profile));
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -156,12 +154,14 @@ public class ComClient implements ComClientInterface{
 
 	@Override
 	public void logoutUserRequest(UUID user) {
-	    sendMessage(new LogoutUserRequestMessage(user));
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void getProfile(UUID user) {
-		sendMessage(new GetProfileMessage(user));
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
